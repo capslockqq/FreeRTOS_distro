@@ -1,8 +1,8 @@
 #pragma once
-#include "../application_code/components/Component.hpp"
-#include "../application_code/communication/transport_layer/I_Serial_Communication.hpp"
-#include "../application_code/control/drone_control.hpp"
-#include "../application_code/components/Parameter.hpp"
+#include "../../component_framework/components/Component.hpp"
+#include "../../component_framework/communication/transport_layer/I_Serial_Communication.hpp"
+#include "../../component_framework/control/drone_control.hpp"
+#include "../../component_framework/components/Parameter.hpp"
 #ifdef TARGET
 #include "../avr_code/operators.h"
 #include <avr/io.h>
@@ -18,8 +18,8 @@
 #include <chrono>
 #include <ctime>
 #include <math.h>
-#include "../application_code/communication/transport_layer/UART_fake.hpp"
-#include "../application_code/communication/transport_layer/I2C_fake.hpp"
+#include "../../component_framework/communication/transport_layer/UART_fake.hpp"
+#include "../../component_framework/communication/transport_layer/I2C_fake.hpp"
 
 
 #include <stdio.h>

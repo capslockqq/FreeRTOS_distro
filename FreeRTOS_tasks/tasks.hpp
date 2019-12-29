@@ -1,6 +1,6 @@
 #pragma once
-#include "../application_code/components/Component.hpp"
-#include "../application_code/components/Binds.hpp"
+#include "../../component_framework/components/Component.hpp"
+#include "../../component_framework/components/Binds.hpp"
 #include "application_code.hpp"
 #define SAMPLE_FREQUENCY 100 // Hz
 
@@ -10,11 +10,11 @@
 #include "../FreeRTOS_Linux/include/task.h"
 #include "../FreeRTOS_Linux/include/queue.h"
 #include "../FreeRTOS_Linux/include/semphr.h"
-#include "../application_code/components/Singleton.hpp"
-#include "../application_code/components/OutputObserver.hpp"
-#include "../application_code/components/type_name.hpp"
-#include "../application_code/components/ParameterWrite.hpp"
-#include "../quadcopter_simulation/quadcopter_simulation.hpp"
+#include "../../component_framework/components/Singleton.hpp"
+#include "../../component_framework/components/OutputObserver.hpp"
+#include "../../component_framework/components/type_name.hpp"
+#include "../../component_framework/components/ParameterWrite.hpp"
+#include "../../quadcopter/simulation/quadcopter_model/quadcopter_simulation.hpp"
 
 #endif
 

@@ -1,10 +1,10 @@
 #pragma once
-#include "../application_code/components/Component.hpp"
-#include "../application_code/communication/transport_layer/I_Serial_Communication.hpp"
+#include "../../component_framework/components/Component.hpp"
+#include "../../component_framework/communication/transport_layer/I_Serial_Communication.hpp"
 
 #ifdef PC
-#include "../application_code/communication/transport_layer/UART_fake.hpp"
-#include "../application_code/communication/transport_layer/I2C_fake.hpp"
+#include "../../component_framework/communication/transport_layer/UART_fake.hpp"
+#include "../../component_framework/communication/transport_layer/I2C_fake.hpp"
 
 #elif TARGET
 #include "../avr_code/communication/transport_layer/UART.hpp"
