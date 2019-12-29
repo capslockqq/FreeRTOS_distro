@@ -1,0 +1,3 @@
+tau_s = time constant
+
+y_k1 = (1-tau)y_k2+tau*u_k, tau = Ts/(Ts+tau_s)
