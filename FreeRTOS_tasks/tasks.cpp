@@ -32,9 +32,8 @@ void Tasks::ControlTask(void *param) {
   double i = 1;
   double result = 0;
   while (1)
-  {
+  { std::cout << "Hej med dig" << std::endl;
     vTaskDelay(SLEEP_TIME_MS);
-    task->application.Update();
     #ifdef PC
     task->quadcopter.update();
     #endif
@@ -56,7 +55,6 @@ void Tasks::ControlTask(void *param) {
        std::cout << "Ticks: " << ticks << std::endl;
        std::cout << "Simulation time: " << ticks/SAMPLE_FREQUENCY << std::endl;
        std::cout << "---------------------------------------------------------------" << std::endl;
-       std::cout << "Number of outputs: " << task->application.drone_controller.drone_roll_controller.PID_controller.op_control_signal.number_of_outputs << std::endl;
        std::cout << "Number of parameters: " << paramwrite->get_number_of_param()<< std::endl;
        vTaskEndScheduler();
        return;
@@ -148,6 +146,5 @@ void Tasks::SetUp_Tasks(Tasks &task) {
 }
 
 void Tasks::BindSystem(Tasks &task) {
-   Bind_Input_2_Output(task.quadcopter.brushless_dc_motor_1.ip_input_voltage, task.application.op_bldc_voltage_set_point);
 }
 

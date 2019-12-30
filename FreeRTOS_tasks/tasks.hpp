@@ -1,7 +1,6 @@
 #pragma once
 #include "../../component_framework/components/Component.hpp"
 #include "../../component_framework/components/Binds.hpp"
-#include "application_code.hpp"
 #define SAMPLE_FREQUENCY 100 // Hz
 
 #ifdef PC
@@ -15,7 +14,7 @@
 #include "../../component_framework/components/type_name.hpp"
 #include "../../component_framework/components/ParameterWrite.hpp"
 #include "../../quadcopter/simulation/quadcopter_model/quadcopter_simulation.hpp"
-
+#include "../../quadcopter/application_code/application_code.hpp"
 #endif
 
 #ifdef TARGET
@@ -49,4 +48,3 @@ private:
     static int ticks;
     #endif
 };
-
