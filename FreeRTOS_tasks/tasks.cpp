@@ -1,17 +1,26 @@
 #include "tasks.hpp"
-Tasks::Tasks() :
+
+#ifdef PC
+Tasks::Tasks(I_application_code *app, I_application_simulation *sim) :
 Component(this, "Tasks", "Tsk")
 // ,com_to_computer(this, "Com to PC", "ComPC")
 // ,com_to_imu(this, "Com to IMU", "02")
 // ,drone_controller("Drone controller", "DRONE")
-,application("Application", "App")
-
-#ifdef PC
-,quadcopter("Quadcopter", "01")
-#endif
+,application(app)
+,simulation_model(sim)
 {
 } 
-
+#endif
+#ifdef TARGET
+Tasks::Tasks(I_application_code *app) :
+Component(this, "Tasks", "Tsk")
+// ,com_to_computer(this, "Com to PC", "ComPC")
+// ,com_to_imu(this, "Com to IMU", "02")
+// ,drone_controller("Drone controller", "DRONE")
+,application(app)
+{
+} 
+#endif
 Tasks::~Tasks() {
     
 }
@@ -32,10 +41,10 @@ void Tasks::ControlTask(void *param) {
   double i = 1;
   double result = 0;
   while (1)
-  { std::cout << "Hej med dig" << std::endl;
+  { 
     vTaskDelay(SLEEP_TIME_MS);
     #ifdef PC
-    task->quadcopter.update();
+    task->simulation_model->Update();
     #endif
     ParameterWrite *paramwrite = ParameterWrite::GetInstance();
     for (int i = 0; i < paramwrite->bool_index; i++) {
@@ -43,8 +52,8 @@ void Tasks::ControlTask(void *param) {
          tmp->SetValue(false);
     }
     task->UpdateOutputs();
-    task->UpdateParameters();
     #ifdef PC
+    task->UpdateParameters();
     task->UpdateOutputLog();
     #endif
     #ifdef PC 
@@ -71,7 +80,7 @@ void Tasks::IMUReceiverTask(void *param) {
 void Tasks::UpdateOutputs() {
 
 }
-
+#ifdef PC
 void Tasks::UpdateParameters() {
   ParameterWrite *paramwrite = ParameterWrite::GetInstance();
   auto all_ids = Component::get_all_unique_ids_as_map();
@@ -103,7 +112,7 @@ void Tasks::UpdateParameters() {
   }
 }
 
-#ifdef PC
+
 void Tasks::UpdateOutputLog() {
   OutputObserver *L = OutputObserver::GetInstance();
   auto list = L->GetUpdate();
@@ -133,6 +142,9 @@ void Tasks::UpdateOutputLog() {
     
   }
 }
+
+void Tasks::BindSystem(Tasks &task) {
+}
 #endif
 
 void Tasks::SetUp_Tasks(Tasks &task) {
@@ -145,6 +157,5 @@ void Tasks::SetUp_Tasks(Tasks &task) {
   vTaskEndScheduler();  
 }
 
-void Tasks::BindSystem(Tasks &task) {
-}
+
 

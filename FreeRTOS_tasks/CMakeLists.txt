@@ -11,8 +11,6 @@ if(BUILD_TYPE STREQUAL "TARGET")
     ${FreeRTOS_Tasks_src}
     )
 else()
-    add_library (
-        pc-Free_RTOS_Tasks
-        ${FreeRTOS_Tasks_src}
-    )
+    add_library (pc-Free_RTOS_Tasks ${FreeRTOS_Tasks_src})
+
 endif()

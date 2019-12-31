@@ -1,4 +1,5 @@
 #pragma once
+#include "Application_interfaces.hpp"
 #include "../../component_framework/components/Component.hpp"
 #include "../../component_framework/components/Binds.hpp"
 #define SAMPLE_FREQUENCY 100 // Hz
@@ -14,7 +15,6 @@
 #include "../../component_framework/components/type_name.hpp"
 #include "../../component_framework/components/ParameterWrite.hpp"
 #include "../../quadcopter/simulation/quadcopter_model/quadcopter_simulation.hpp"
-#include "../../quadcopter/application_code/application_code.hpp"
 #endif
 
 #ifdef TARGET
@@ -23,26 +23,33 @@
 #include "../FreeRTOS_avr/include/task.h"
 
 #endif
+#include "../../quadcopter/application_code/application_code.hpp"
 
 // Component *Application = new Component(0, "Application", "01");
 class Tasks : public Component {
 public:
-Tasks();
+    #ifdef PC
+    Tasks(I_application_code *app, I_application_simulation *sim);
+    #endif
+    #ifdef TARGET
+    Tasks(I_application_code *app);
+    #endif
     ~Tasks();
     void SetUp_Tasks(Tasks &task);
-    Application_code application;
+    I_application_code *application;
 
     #ifdef PC
     static float m_simulation_time_seconds;
-    quadcopter_model quadcopter;
+    I_application_simulation *simulation_model;
     #endif
 private:
     void ControlSenderTask(void *param);
     static void ControlTask(void *param);
     static void IMUReceiverTask(void *param);
     static void UpdateOutputs();
-    static void UpdateParameters();
+    
     #ifdef PC
+    static void UpdateParameters();
     static void BindSystem(Tasks &task);
     static void UpdateOutputLog();
     static int ticks;
